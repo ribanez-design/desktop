@@ -40,9 +40,9 @@ jobs:
           craft craft
           craft --install-deps nextcloud-client
 
-      - name: Install Inkscape
+      - name: Install Inkscape and NSIS
         shell: pwsh
-        run: choco install inkscape
+        run: choco install inkscape nsis -y
 
       - name: Setup PATH
         shell: pwsh
@@ -83,14 +83,12 @@ jobs:
       - name: Find Installer
         shell: pwsh
         run: |
-          Write-Host "Searching for installer files..."
-          Get-ChildItem -Path "${{ github.workspace }}" -Recurse -Include "*.exe","*.msi" -ErrorAction SilentlyContinue | Where-Object { $_.Name -match "t2b|setup|install" -or $_.DirectoryName -match "installer|package" } | Select-Object FullName
+          Write-Host "Searching for installer/package files..."
+          Get-ChildItem -Path "${{ github.workspace }}\${{ env.CRAFT_TARGET }}" -Recurse -Include "*.exe","*.msi","*.7z" -ErrorAction SilentlyContinue | Where-Object { $_.Length -gt 10MB } | Select-Object FullName, Length
 
       - name: Upload Installer
         uses: actions/upload-artifact@v4
         with:
           name: T2BDrive-Windows-Installer
-          path: |
-            ${{ github.workspace }}\${{ env.CRAFT_TARGET }}\**\*.exe
-            ${{ github.workspace }}\${{ env.CRAFT_TARGET }}\**\*.msi
+          path: ${{ github.workspace }}\${{ env.CRAFT_TARGET }}\packages\*
           retention-days: 30
