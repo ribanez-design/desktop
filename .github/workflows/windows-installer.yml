@@ -59,6 +59,17 @@ jobs:
 
           craft --src-dir ${{ github.workspace }} nextcloud-client
 
+      - name: Fix blueprint packaging script
+        shell: pwsh
+        run: |
+          $blueprintFile = "${{ github.workspace }}\${{ env.CRAFT_TARGET }}\etc\blueprints\locations\desktop-client-blueprints\nextcloud-client\nextcloud-client.py"
+          $content = Get-Content $blueprintFile -Raw
+          if (-not ($content -match "import os")) {
+            $content = "import os`n" + $content
+            Set-Content $blueprintFile $content
+            Write-Host "Patched: added import os"
+          }
+
       - name: Package Installer
         shell: pwsh
         run: |
