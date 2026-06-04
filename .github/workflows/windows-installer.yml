@@ -80,11 +80,17 @@ jobs:
 
           craft --package nextcloud-client
 
+      - name: Find Installer
+        shell: pwsh
+        run: |
+          Write-Host "Searching for installer files..."
+          Get-ChildItem -Path "${{ github.workspace }}" -Recurse -Include "*.exe","*.msi" -ErrorAction SilentlyContinue | Where-Object { $_.Name -match "t2b|setup|install" -or $_.DirectoryName -match "installer|package" } | Select-Object FullName
+
       - name: Upload Installer
         uses: actions/upload-artifact@v4
         with:
           name: T2BDrive-Windows-Installer
           path: |
-            ${{ github.workspace }}\${{ env.CRAFT_TARGET }}\installer\*.exe
-            ${{ github.workspace }}\${{ env.CRAFT_TARGET }}\installer\*.msi
+            ${{ github.workspace }}\${{ env.CRAFT_TARGET }}\**\*.exe
+            ${{ github.workspace }}\${{ env.CRAFT_TARGET }}\**\*.msi
           retention-days: 30
