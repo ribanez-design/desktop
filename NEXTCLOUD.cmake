@@ -19,7 +19,7 @@ endif()
 set( APPLICATION_CONFIG_NAME "${APPLICATION_EXECUTABLE}" )
 set( APPLICATION_DOMAIN     "t2b.tech" )
 set( APPLICATION_VENDOR     "Tech2Business" )
-set( APPLICATION_UPDATE_URL "" CACHE STRING "URL for updater" )
+set( APPLICATION_UPDATE_URL "https://t2b.tech/" CACHE STRING "URL for updater" )
 set( APPLICATION_HELP_URL   "" CACHE STRING "URL for the help menu" )
 
 set( APPLICATION_ICON_SET   "SVG" )
