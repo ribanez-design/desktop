@@ -22,7 +22,7 @@ set( APPLICATION_VENDOR     "Tech2Business" )
 set( APPLICATION_UPDATE_URL "" CACHE STRING "URL for updater" )
 set( APPLICATION_HELP_URL   "" CACHE STRING "URL for the help menu" )
 
-set( APPLICATION_ICON_SET   "PNG" )
+set( APPLICATION_ICON_SET   "SVG" )
 set( APPLICATION_SERVER_URL "http://t2bdrive.local:30027" CACHE STRING "URL for the server to use. If entered, the UI field will be pre-filled with it" )
 set( APPLICATION_SERVER_URL_ENFORCE ON ) # If set and APPLICATION_SERVER_URL is defined, the server can only connect to the pre-defined URL
 set( APPLICATION_REV_DOMAIN "tech.t2b.drive" )
